@@ -1,6 +1,0 @@
-@MenuApiV2_HostAddress = http://localhost:5247
-
-GET {{MenuApiV2_HostAddress}}/Cook/noah
-Accept: application/json
-
-###
