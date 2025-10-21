@@ -35,10 +35,38 @@ public static class AuthAppDbSeeder
 
         if (await userManager.FindByNameAsync("admin") == null)
         {
-            var result = await userManager.CreateAsync(adminUser, "Admin1234567");
+            var result = await userManager.CreateAsync(adminUser, "Admin123456!");
             if (result.Succeeded)
             {
                 await userManager.AddToRoleAsync(adminUser, "Admin");
+            }
+        }
+
+        var testUserAccount = new UserAccount
+        {
+            UserName = "user",
+            Amount = 1000,
+            ActiveStatus = true
+        };
+
+        var res = await context.UserAccounts.AddAsync(testUserAccount);
+        await context.SaveChangesAsync();
+
+        if (res != null)
+        {
+            var testUser = new ApiUser
+            {
+                UserName = testUserAccount.UserName,
+                UserAccount = testUserAccount
+            };
+
+            if (await userManager.FindByNameAsync("user") == null)
+            {
+                var result = await userManager.CreateAsync(testUser, "Password123!");
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(testUser, "User");
+                }
             }
         }
     }

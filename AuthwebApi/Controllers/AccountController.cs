@@ -39,9 +39,20 @@ namespace AuthwebApi.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var newUser = new ApiUser
+            var testUserAccount = new UserAccount
             {
                 UserName = input.UserName,
+                Amount = 1000,
+                ActiveStatus = true
+            };
+
+            var res = await _context.UserAccounts.AddAsync(testUserAccount);
+            await _context.SaveChangesAsync();
+
+            var newUser = new ApiUser
+            {
+                UserName = testUserAccount.UserName,
+                UserAccount = testUserAccount
             };
 
             var result = await _userManager.CreateAsync(newUser, input.Password);
@@ -114,9 +125,9 @@ namespace AuthwebApi.Controllers
             return Ok(userCount);
         }
 
-        
+
     }
 
-       
+
 }
 

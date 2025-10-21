@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AuthwebApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ab5be1451f7817b3446dce7e4a22eec0621972f4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e20de1a7009e54eb76e6b993aae109a047d8d4f7")]
 [assembly: System.Reflection.AssemblyProductAttribute("AuthwebApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AuthwebApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -20,8 +20,7 @@ public class AuthAppDbContext : IdentityDbContext<ApiUser>
 
         // public DbSet<Deposit> Deposits { get; set; }
         // public DbSet<Transaction> Transactions { get; set; }
-
-
+        public DbSet<UserAccount> UserAccounts { get; set; }
 
 }
 
