@@ -19,6 +19,8 @@ builder.Services.AddIdentity<ApiUser, IdentityRole>(options =>
 {
     options.User.RequireUniqueEmail = false;
     options.SignIn.RequireConfirmedEmail = false;
+    options.Lockout.AllowedForNewUsers = false;
+
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
     options.Password.RequireUppercase = true;

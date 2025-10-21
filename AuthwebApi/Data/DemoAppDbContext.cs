@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using AuthwebApi.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace AuthwebApi.Data;
@@ -13,14 +14,14 @@ public class AuthAppDbContext : IdentityDbContext<ApiUser>
     {
     }
 
-    public AuthAppDbContext(DbContextOptions<AuthAppDbContext> options)
-        : base(options)
+    public AuthAppDbContext(DbContextOptions<AuthAppDbContext> options) : base(options)
     {
     }
 
-        // public DbSet<Deposit> Deposits { get; set; }
-        // public DbSet<Transaction> Transactions { get; set; }
-        public DbSet<UserAccount> UserAccounts { get; set; }
+    // public DbSet<Deposit> Deposits { get; set; }
+    // public DbSet<Transaction> Transactions { get; set; }
+    public DbSet<UserAccount> UserAccounts { get; set; }
+   
 
 }
 
