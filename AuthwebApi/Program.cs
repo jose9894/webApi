@@ -48,7 +48,8 @@ builder.Services.AddAuthentication(options =>
         ValidAudience = builder.Configuration["JWT:Audience"],
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(
-    System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"]))
+    System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"])),
+        ClockSkew = TimeSpan.Zero //burde fjerne default 5 min default tillægs tid som er til få små delays osv
     };
 });
 
@@ -105,9 +106,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseHttpsRedirection();
+
 app.MapControllers();
 
 

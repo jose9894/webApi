@@ -84,6 +84,7 @@ namespace AuthwebApi.Controllers
 
                         var claims = new List<Claim>();
                         claims.Add(new Claim(ClaimTypes.Name, user.UserName));
+                        claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id));
                         claims.AddRange((await _userManager.GetRolesAsync(user))
                         .Select(r => new Claim(ClaimTypes.Role, r)));
 
@@ -91,7 +92,7 @@ namespace AuthwebApi.Controllers
                         issuer: _configuration["JWT:Issuer"],
                         audience: _configuration["JWT:Audience"],
                         claims: claims,
-                        expires: DateTime.Now.AddSeconds(300),
+                        expires: DateTime.UtcNow.AddMinutes(Convert.ToInt32(_configuration["JWT:Expiration"])),
                         signingCredentials: signingCredentials);
 
                         var jwtString = new JwtSecurityTokenHandler()
@@ -117,17 +118,30 @@ namespace AuthwebApi.Controllers
             }
         }
 
+
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        public async Task<ActionResult<int>> GetUserCount()
+        public async Task<ActionResult<object>> GetUserInfo()
         {
-            var userCount = await _context.Users.CountAsync();
-            return Ok(userCount);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); //finder id via token
+
+            if (userId != null)
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user == null)
+                    return NotFound("User not found.");
+
+                return Ok(new
+                {
+                    user.Id,
+                    user.UserName,
+                });
+            }
+
+            return NotFound();
         }
 
-
     }
-
 
 }
 
